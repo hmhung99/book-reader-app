@@ -1,0 +1,61 @@
+PODS:
+  - AEXML (4.6.0)
+  - Cosmos (23.0.0)
+  - DropDown (2.3.13)
+  - EPUBKit (0.3.1):
+    - AEXML
+    - Zip
+  - FBSDKCoreKit (9.3.0):
+    - FBSDKCoreKit/Basics (= 9.3.0)
+    - FBSDKCoreKit/Core (= 9.3.0)
+  - FBSDKCoreKit/Basics (9.3.0)
+  - FBSDKCoreKit/Core (9.3.0):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (9.3.0):
+    - FBSDKLoginKit/Login (= 9.3.0)
+  - FBSDKLoginKit/Login (9.3.0):
+    - FBSDKCoreKit (~> 9.3.0)
+  - Realm (10.7.2):
+    - Realm/Headers (= 10.7.2)
+  - Realm/Headers (10.7.2)
+  - RealmSwift (10.7.2):
+    - Realm (= 10.7.2)
+  - SwiftyJSON (5.0.1)
+  - Zip (2.1.1)
+
+DEPENDENCIES:
+  - Cosmos
+  - DropDown
+  - EPUBKit
+  - FBSDKLoginKit
+  - RealmSwift
+  - SwiftyJSON
+
+SPEC REPOS:
+  trunk:
+    - AEXML
+    - Cosmos
+    - DropDown
+    - EPUBKit
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - Realm
+    - RealmSwift
+    - SwiftyJSON
+    - Zip
+
+SPEC CHECKSUMS:
+  AEXML: 2fbb73d8724797ed2cde888731e176fa4d44dd83
+  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
+  DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
+  EPUBKit: 7ba9a980346d75acda03717fd66d1696fafe6417
+  FBSDKCoreKit: 0d1ae58388a458b8222f72025804cdc84eb5d0c3
+  FBSDKLoginKit: aea68df6121c5e165ccae2fabfdc83c4644ee40f
+  Realm: e523da9ade306c5ae87e85dc09fdef148d3e1cc1
+  RealmSwift: 4f6758c3adbdcc87f7b7777107226532a077f61c
+  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
+  Zip: 414f59909701fda9a84ab774ebe0f5449b1082cc
+
+PODFILE CHECKSUM: 6f0b474506dd11f6f6b1bd9d306ca08dbb28c21a
+
+COCOAPODS: 1.10.1
