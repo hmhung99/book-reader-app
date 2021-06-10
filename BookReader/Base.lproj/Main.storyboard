@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="abL-IB-81W">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -11,17 +12,17 @@
         <!--Files-->
         <scene sceneID="4NJ-os-DjI">
             <objects>
-                <tableViewController id="IZO-ez-1X4" customClass="FilesViewController" customModule="FileReader" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="IZO-ez-1X4" customClass="FilesViewController" customModule="BookReader" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="n5F-81-kqF">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="UJ9-9I-dz0" customClass="F">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UJ9-9I-dz0" id="91g-Rf-do4" customClass="BookCell" customModule="FileReader" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UJ9-9I-dz0" id="91g-Rf-do4" customClass="BookCell" customModule="BookReader" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -54,17 +55,17 @@
         <!--Local-->
         <scene sceneID="bJg-ab-4qn">
             <objects>
-                <tableViewController id="cd3-vR-WLG" customClass="BooksViewController" customModule="FileReader" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="cd3-vR-WLG" customClass="BooksViewController" customModule="BookReader" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fSd-db-WHb">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.90196078431372551" green="0.92549019607843142" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookCell" id="yvK-OV-k4w">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yvK-OV-k4w" id="DnM-4X-SLv">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -86,36 +87,30 @@
         <!--Epub View Controller-->
         <scene sceneID="c1W-mN-rqh">
             <objects>
-                <viewController id="14d-br-f1E" customClass="EpubViewController" customModule="FileReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="14d-br-f1E" customClass="EpubViewController" customModule="BookReader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mkd-8t-qjE">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hahahaha" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Dj-yy-2MN">
-                                <rect key="frame" x="16" y="4" width="568" height="18"/>
+                                <rect key="frame" x="16" y="4" width="382" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" systemColor="opaqueSeparatorColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yeE-FL-F2N">
-                                <rect key="frame" x="16" y="4" width="568" height="30"/>
+                                <rect key="frame" x="16" y="4" width="382" height="30"/>
                                 <connections>
                                     <action selector="chapterLabelPressed:" destination="14d-br-f1E" eventType="touchUpInside" id="kde-i7-mtp"/>
                                 </connections>
                             </button>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ycg-hT-Mz6">
-                                <rect key="frame" x="5" y="30" width="590" height="557"/>
+                                <rect key="frame" x="5" y="30" width="404" height="853"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="wMR-1k-xtn">
-                                <rect key="frame" x="15" y="556" width="570" height="30"/>
-                                <connections>
-                                    <action selector="sliderValueChange:" destination="14d-br-f1E" eventType="valueChanged" id="OXU-Of-wDR"/>
-                                </connections>
-                            </slider>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Fsg-wf-xyh"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -124,13 +119,10 @@
                             <constraint firstItem="1Dj-yy-2MN" firstAttribute="top" secondItem="mkd-8t-qjE" secondAttribute="top" constant="4" id="0cK-8t-JQN"/>
                             <constraint firstItem="1Dj-yy-2MN" firstAttribute="leading" secondItem="mkd-8t-qjE" secondAttribute="leading" constant="16" id="5nM-uW-JAb"/>
                             <constraint firstItem="Ycg-hT-Mz6" firstAttribute="top" secondItem="1Dj-yy-2MN" secondAttribute="bottom" constant="8" symbolic="YES" id="8VZ-S4-RdU"/>
-                            <constraint firstAttribute="trailing" secondItem="wMR-1k-xtn" secondAttribute="trailing" constant="15" id="RXI-5W-D1G"/>
                             <constraint firstAttribute="trailing" secondItem="1Dj-yy-2MN" secondAttribute="trailing" constant="16" id="a22-an-L7h"/>
                             <constraint firstItem="Ycg-hT-Mz6" firstAttribute="leading" secondItem="Fsg-wf-xyh" secondAttribute="leading" constant="5" id="cZz-IS-qir"/>
                             <constraint firstAttribute="trailing" secondItem="yeE-FL-F2N" secondAttribute="trailing" constant="16" id="hW3-NW-2dg"/>
                             <constraint firstItem="Fsg-wf-xyh" firstAttribute="trailing" secondItem="Ycg-hT-Mz6" secondAttribute="trailing" constant="5" id="iMu-Di-VAm"/>
-                            <constraint firstItem="wMR-1k-xtn" firstAttribute="leading" secondItem="mkd-8t-qjE" secondAttribute="leading" constant="15" id="idY-uC-hIT"/>
-                            <constraint firstAttribute="bottom" secondItem="wMR-1k-xtn" secondAttribute="bottom" constant="14" id="jb3-LN-soz"/>
                             <constraint firstAttribute="bottom" secondItem="Ycg-hT-Mz6" secondAttribute="bottom" constant="13" id="thr-4V-jId"/>
                             <constraint firstItem="yeE-FL-F2N" firstAttribute="leading" secondItem="mkd-8t-qjE" secondAttribute="leading" constant="16" id="whG-65-aXe"/>
                         </constraints>
@@ -152,7 +144,6 @@
                     <connections>
                         <outlet property="blueView" destination="mkd-8t-qjE" id="X8d-9b-RNe"/>
                         <outlet property="chapterLabel" destination="1Dj-yy-2MN" id="IFO-o0-m8L"/>
-                        <outlet property="sliderPage" destination="wMR-1k-xtn" id="Ugc-sa-Umb"/>
                         <outlet property="webView" destination="Ycg-hT-Mz6" id="VDh-G0-vT3"/>
                     </connections>
                 </viewController>
@@ -163,17 +154,17 @@
         <!--Chapters Table View Controller-->
         <scene sceneID="Re6-bF-Cpr">
             <objects>
-                <tableViewController id="Qc6-Zw-3TE" customClass="ChaptersTableViewController" customModule="FileReader" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Qc6-Zw-3TE" customClass="ChaptersTableViewController" customModule="BookReader" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="JfF-ck-jdi">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="chapterItem" id="5Cy-wQ-WvF">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5Cy-wQ-WvF" id="mKV-Yb-oRr">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -214,11 +205,11 @@
                 <navigationController id="oBk-jo-08y" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Source" image="network" catalog="system" id="a1A-mv-ho7"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JEX-Bl-lje">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="hQb-75-vSx" kind="relationship" relationship="rootViewController" id="cEv-yE-9AM"/>
+                        <segue destination="8hN-l2-dLn" kind="relationship" relationship="rootViewController" id="5CF-pq-OL7"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W7z-CI-v2V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -228,9 +219,9 @@
         <!--Login View Controller-->
         <scene sceneID="0fj-gx-ETg">
             <objects>
-                <viewController id="hQb-75-vSx" customClass="LoginViewController" customModule="FileReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hQb-75-vSx" customClass="LoginViewController" customModule="BookReader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VuV-RQ-6Rd">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="bpr-TM-kph"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -247,17 +238,17 @@
         <!--User Table View Controller-->
         <scene sceneID="H0w-Ha-A5l">
             <objects>
-                <tableViewController id="tcS-1B-Zcw" customClass="UserTableViewController" customModule="FileReader" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="tcS-1B-Zcw" customClass="UserTableViewController" customModule="BookReader" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="mhv-Og-xVl">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryCell" id="jkK-zj-aCT">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jkK-zj-aCT" id="WXK-PO-EBO">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -270,14 +261,17 @@
                     <navigationItem key="navigationItem" id="04c-Ok-JQa">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="NsQ-Dq-rx3">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="ayD-hS-FKV">
-                                <rect key="frame" x="276" y="7" width="83" height="30"/>
+                                <rect key="frame" x="311" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Log out"/>
+                                <connections>
+                                    <action selector="loginButtonPressed:" destination="tcS-1B-Zcw" eventType="touchUpInside" id="ry3-ID-tC8"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="logOutButton" destination="ayD-hS-FKV" id="BrR-VE-MII"/>
+                        <outlet property="loginButton" destination="ayD-hS-FKV" id="BrR-VE-MII"/>
                         <segue destination="66H-LP-sD9" kind="show" identifier="toCategoryBooks" id="5QL-1j-1RN"/>
                     </connections>
                 </tableViewController>
@@ -288,17 +282,17 @@
         <!--Category Books View Controller-->
         <scene sceneID="rJw-gV-21q">
             <objects>
-                <tableViewController id="66H-LP-sD9" customClass="CategoryBooksViewController" customModule="FileReader" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="66H-LP-sD9" customClass="CategoryBooksViewController" customModule="BookReader" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Zvv-v9-J5r">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryBooksCell" id="nWh-1l-KRi">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nWh-1l-KRi" id="0xC-Vr-CER">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -320,22 +314,22 @@
         <!--Source-->
         <scene sceneID="5iT-6l-n4w">
             <objects>
-                <tableViewController id="8hN-l2-dLn" customClass="BookSourceViewController" customModule="FileReader" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="8hN-l2-dLn" customClass="BookSourceViewController" customModule="BookReader" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Aet-Wb-joP">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" id="Fio-Um-HHZ">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookSourceCell" id="5JP-cw-7wd">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                <rect key="frame" x="0.0" y="72" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5JP-cw-7wd" id="dFv-0j-rS0">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -365,9 +359,9 @@
         <!--Detail View Controller-->
         <scene sceneID="tBa-kx-1Pq">
             <objects>
-                <viewController id="jWW-Se-5b5" customClass="DetailViewController" customModule="FileReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="jWW-Se-5b5" customClass="DetailViewController" customModule="BookReader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fgH-2y-Ixk">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fqh-xm-Is5">
@@ -479,20 +473,20 @@
         <!--Review View Controller-->
         <scene sceneID="HDb-aX-hT8">
             <objects>
-                <viewController id="Oza-8x-1hC" customClass="ReviewViewController" customModule="FileReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Oza-8x-1hC" customClass="ReviewViewController" customModule="BookReader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v6c-VH-nFo">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hPk-5q-Pg7">
-                                <rect key="frame" x="0.0" y="56" width="600" height="544"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
                                 <color key="backgroundColor" red="0.91764705879999997" green="0.93725490199999995" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reviewCell" id="JMx-8e-QGG">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JMx-8e-QGG" id="oZT-XT-p3x">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -503,7 +497,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAx-Au-fgy">
-                                <rect key="frame" x="16" y="18" width="568" height="30"/>
+                                <rect key="frame" x="16" y="106" width="382" height="30"/>
                                 <state key="normal" title="Write a review">
                                     <color key="titleColor" name="AccentColor"/>
                                 </state>
@@ -538,9 +532,9 @@
         <!--Write a review-->
         <scene sceneID="90A-DF-NPT">
             <objects>
-                <viewController title="Write a review" id="1YK-iV-jqx" customClass="WriteReviewViewController" customModule="FileReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Write a review" id="1YK-iV-jqx" customClass="WriteReviewViewController" customModule="BookReader" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nPp-jh-CqI">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mZW-Lk-VSq">
@@ -572,6 +566,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
+                        <outlet property="rateView" destination="c1y-oK-nBr" id="DZy-zN-hhc"/>
                         <outlet property="sendButton" destination="nBA-AK-YJR" id="sNO-oN-Pwf"/>
                         <outlet property="textView" destination="mZW-Lk-VSq" id="RRi-xp-sRW"/>
                     </connections>
@@ -586,7 +581,7 @@
                 <navigationController title="BookReader" id="doB-cF-4GE" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Local" image="folder" catalog="system" id="Lz7-ah-y4B"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="WdQ-hE-kXA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -600,7 +595,7 @@
         <!--Test View Controller-->
         <scene sceneID="3bh-cC-q05">
             <objects>
-                <viewController id="8lR-iu-MxS" customClass="TestViewController" customModule="FileReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8lR-iu-MxS" customClass="TestViewController" customModule="BookReader" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Ce9-Pg-2qu"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uWl-PP-txM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -612,7 +607,7 @@
             <objects>
                 <viewController id="sBt-yv-77d" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MMw-4H-28b">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="uWv-Dv-r5H"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -623,18 +618,24 @@
             <point key="canvasLocation" x="1493" y="736"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="c1y-oK-nBr">
+            <size key="intrinsicContentSize" width="120" height="20"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="IYc-ij-goM"/>
+        <segue reference="5CF-pq-OL7"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" systemColor="labelColor"/>
     <resources>
-        <image name="chart.bar.doc.horizontal" catalog="system" width="32" height="32"/>
+        <image name="chart.bar.doc.horizontal" catalog="system" width="115" height="128"/>
         <image name="comment" width="256" height="256"/>
         <image name="download-circular-button" width="256" height="256"/>
-        <image name="folder" catalog="system" width="32" height="32"/>
+        <image name="folder" catalog="system" width="128" height="97"/>
         <image name="like" width="512" height="512"/>
-        <image name="network" catalog="system" width="32" height="32"/>
-        <image name="textformat.size" catalog="system" width="32" height="32"/>
+        <image name="network" catalog="system" width="128" height="121"/>
+        <image name="textformat.size" catalog="system" width="128" height="80"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

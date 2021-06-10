@@ -27,6 +27,7 @@ struct Book: Codable {
     var publisher: Publisher?
     let category: Category?
     let free: Bool
+    let reviews: [Review]?
 }
 
 struct Author: Codable {

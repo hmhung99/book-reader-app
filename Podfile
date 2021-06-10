@@ -9,4 +9,6 @@ target 'BookReader' do
   pod 'SwiftyJSON'
   pod 'FBSDKLoginKit'
   pod 'Cosmos'
+  pod 'Alamofire', '~> 4.7'
+  pod 'Kingfisher', '~> 6.0'
 end

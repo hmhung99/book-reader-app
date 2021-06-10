@@ -8,10 +8,8 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
     var book: Book!
     var likesCount: Int = 0
-    
     @IBOutlet weak var likesImageView: UIImageView!
     @IBOutlet weak var cover: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -40,17 +38,18 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateLikesImage(imageView: likesImageView, for: book.id)
-        updateLikesCount(label: likesCountLabel, bookId: book.id)
+        likesCountLabel.text = String(book.reactionNum)
+        print(jwt)
         initView()
         
     }
     
     func initView() {
-        cover.load(url: URL(string: book.bookCover!)!)
+        cover.loadImage(from: book.bookCover!)
         cover.contentMode = .scaleAspectFill
         cover.backgroundColor = UIColor.white
         cover.layer.cornerRadius = 8.0
-        backgroundImage.load(url: URL(string: book.bookCover!)!)
+        backgroundImage.loadImage(from: book.bookCover!)
         backgroundImage.contentMode = .scaleToFill
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.prominent)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -67,7 +66,7 @@ class DetailViewController: UIViewController {
         let alarm = URL(string: book.bookLink!)!
         do {
             try alarm.download(to: .documentDirectory, using: book.name) { url, error in
-                guard let url = url else { return }
+//                guard let url = url else { return }
             }
         } catch {
             print(error)
@@ -75,29 +74,31 @@ class DetailViewController: UIViewController {
     }
     
     func likeBook() {
-        let url = URL(string: "\(ip)/books/\(book.id)/likes")!
-        var request = URLRequest(url: url)
-        
-        request.httpMethod = "POST"
-        request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        request.setValue(jwt, forHTTPHeaderField: "user-token")
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
-                return
+        BookAPI.shared.postLike(id: book.id) { (data) in
+            DispatchQueue.main.async {
+                self.loadBook()
+                self.loadLikedBooks()
             }
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: Any] {
-                print(responseJSON)
-            }
-            loadLikedBooks(imageView: self.likesImageView, bookId: self.book.id)
-            updateLikesCount(label: self.likesCountLabel, bookId: self.book.id)
-            
         }
-        task.resume()
     }
+    
+    func loadBook() {
+        BookAPI.shared.getBookById(id: book.id) { (object) in
+            DispatchQueue.main.async {
+                self.likesCountLabel.text = String(object.reactionNum)
+            }
+        }
+    }
+    
+    func loadLikedBooks() {
+        BookAPI.shared.getLikedBooks { (list) in
+            DispatchQueue.main.async {
+                likedBooks = list
+                updateLikesImage(imageView: self.likesImageView, for: self.book.id)
+            }
+        }
+    }
+
 }
 
 func updateLikesImage(imageView: UIImageView, for bookId: String) {
@@ -108,19 +109,7 @@ func updateLikesImage(imageView: UIImageView, for bookId: String) {
     }
 }
 
-func updateLikesCount(label: UILabel, bookId: String) {
-    let url = URL(string: "\(ip)/books/\(bookId)/likes")!
-    var request = URLRequest(url: url)
-    URLSession.shared.dataTask(with: request) { (data, response, error) in
-        if let data = data {
-            if let response = try? JSONDecoder().decode(Int.self, from:data) {
-                DispatchQueue.main.async {
-                    label.text = String(response)
-                }
-            }
-        }
-    }.resume()
-}
+
 
 extension URL {
     func download(to directory: FileManager.SearchPathDirectory, using fileName: String? = nil, overwrite: Bool = false, completion: @escaping (URL?, Error?) -> Void) throws {
@@ -155,4 +144,3 @@ extension URL {
         }.resume()
     }
 }
-

@@ -11,7 +11,6 @@ class CategoryBooksViewController: UITableViewController {
 
     var books: [Book] = []
     var categoryId = 0
-    
     override func viewWillAppear(_ animated: Bool) {
         loadBooksByCategory()
         self.tableView.separatorStyle = .none
@@ -42,9 +41,7 @@ class CategoryBooksViewController: UITableViewController {
         cell.likes.image = UIImage(named: "like-icon")
         cell.likesCount.text = String(book.reactionNum)
         if let coverLink = book.bookCover {
-            cell.bookCover.load(url: URL(string: coverLink)!)
-        } else {
-            cell.bookCover.image = UIImage(named: "oldback")
+            cell.bookCover.loadImage(from: coverLink)
         }
         updateLikesImage(imageView: cell.likes, for: book.id)
         return cell
@@ -64,46 +61,38 @@ class CategoryBooksViewController: UITableViewController {
             destinationVC.book = books[indexPath.row]
         }
     }
-
     
     func loadBooksByCategory() {
         books = []
-    
         if categoryId == 0 {
             loadFavoriteBooks()
-        }
-        
-        let url = URL(string: "\(ip)/categories/\(categoryId)")
-        var request = URLRequest(url: url!)
-        request.setValue(jwt, forHTTPHeaderField: "user-token")
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let data = data {
-                if let response = try? JSONDecoder().decode(Category.self, from:data) {
-                    DispatchQueue.main.async {
-                        self.books = response.books ?? []
-                        self.tableView.reloadData()
-                    }
+        } else {
+            BookAPI.shared.getBooksByCategory(categoryId: categoryId) { (list) in
+                DispatchQueue.main.async {
+                    self.books = list
+                    UIView.transition(with: self.tableView,
+                                      duration: 1,
+                                      options: .transitionCrossDissolve,
+                                      animations: { self.tableView.reloadData() })
                 }
             }
-        }.resume()
+        }
     }
     
     func loadFavoriteBooks() {
-        let url = URL(string: "\(ip)/books/likes")
-        var request = URLRequest(url: url!)
-        request.setValue(jwt, forHTTPHeaderField: "user-token")
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let data = data {
-                if let response = try? JSONDecoder().decode(FavoriteBooks.self, from:data) {
-                    DispatchQueue.main.async {
-                        self.books = response.favoriteBooks ?? []
-                        self.books = self.books.sorted { (i, j) -> Bool in
-                            return i.name < j.name
-                        }
-                        self.tableView.reloadData()
-                    }
+        BookAPI.shared.getLikedBooks { (list) in
+            DispatchQueue.main.async {
+                self.books = list
+                self.books = self.books.sorted { (i, j) -> Bool in
+                    return i.name < j.name
                 }
+                UIView.transition(with: self.tableView,
+                                  duration: 0.35,
+                                  options: .transitionCrossDissolve,
+                                  animations: { self.tableView.reloadData() })
             }
-        }.resume()
+        }
     }
 }
+
+

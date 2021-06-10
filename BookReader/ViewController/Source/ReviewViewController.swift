@@ -10,12 +10,15 @@ import Cosmos
 import FBSDKLoginKit
 
 
+protocol WriteReviewViewControllerDeletage {
+    func doneReviewing ()
+}
+
 class ReviewViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     var book: Book!
     var reviews: [Review] = []
-   
     @IBAction func writeAReviewButtonPressed(_ sender: Any) {
         
     }
@@ -59,27 +62,22 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! WriteReviewViewController
         destinationVC.book = book
+        destinationVC.delegate = self
     }
     
     func loadReviews() {
-        reviews = []
-        let url = URL(string: "\(ip)/books/\(book.id)/reviews")
-        var request = URLRequest(url: url!)
-        request.setValue(jwt, forHTTPHeaderField: "user-token")
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let data = data {
-                if let response = try? JSONDecoder().decode(ListReviews.self, from:data) {
-                    DispatchQueue.main.async {
-                        self.reviews = response.reviews
-                        self.reviews.forEach { (i) in
-                            if i.user.facebookUserId == AccessToken.current?.userID {
-                                print(i.user.name)
-                            }
-                        }
-                        self.tableView.reloadData()
-                    }
-                }
+        BookAPI.shared.getReviews(bookId: book.id) { (list) in
+            DispatchQueue.main.async {
+                self.reviews = list
+                self.tableView.reloadData()
             }
-        }.resume()
+        }
     }
 }
+
+extension ReviewViewController: WriteReviewViewControllerDeletage {
+    func doneReviewing() {
+        loadReviews()
+    }
+}
+

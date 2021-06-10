@@ -10,14 +10,36 @@ import FBSDKLoginKit
 
 class UserTableViewController: UITableViewController {
 
-    @IBOutlet weak var logOutButton: UIButton!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBAction func loginButtonPressed(_ sender: Any) {
+        let loginManager = LoginManager()
+        if let _ = AccessToken.current {
+            loginManager.logOut()
+            jwt = ""
+            updateButton(isLoggedIn: false)
+        } else {
+            loginManager.logIn(permissions: [], from: self) { (result, error) in
+                guard error == nil else {
+                               // Error occurred
+                               print(error!.localizedDescription)
+                               return
+                           }
+                guard let result = result, !result.isCancelled else {
+                                print("User cancelled login")
+                                return
+                            }
+                self.updateButton(isLoggedIn: true)
+                postUser(AccessToken.current!.tokenString)
+            }
+        }
+    }
     
     var categoiresLabel: [String] = ["My favorites", "Khoa Học", "Tiểu Thuyết", "Lịch Sử"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let loginButton = FBLoginButton()
-        logOutButton.addSubview(loginButton)
+        updateButton(isLoggedIn: AccessToken.current != nil)
+    
     }
 
     // MARK: - Table view data source
@@ -44,6 +66,11 @@ class UserTableViewController: UITableViewController {
             destinationVC.categoryId = indexPath.row
         }
     }
-    
+}
 
+extension UserTableViewController {
+    private func updateButton(isLoggedIn: Bool) {
+            let title = isLoggedIn ? "Log out" : "Log in"
+            loginButton.setTitle(title, for: .normal)
+        }
 }

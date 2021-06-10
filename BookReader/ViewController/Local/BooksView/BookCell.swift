@@ -16,6 +16,8 @@ class BookCell: UITableViewCell {
     @IBOutlet weak var category: UILabel!
     @IBOutlet weak var likes: UIImageView!
     @IBOutlet weak var likesCount: UILabel!
+    @IBOutlet weak var ratingStarImage: UIImageView!
+    @IBOutlet weak var ratingLabel: UILabel!
     
     
     override func awakeFromNib() {

@@ -17,7 +17,6 @@ class ReviewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         reviewView.layer.cornerRadius = 10
-        let font = UIFont(name: "Helvetica", size: 20.0)!
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
