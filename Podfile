@@ -5,10 +5,8 @@ target 'BookReader' do
   use_frameworks!
   pod 'EPUBKit'
   pod 'RealmSwift'
-  pod 'DropDown'
-  pod 'SwiftyJSON'
   pod 'FBSDKLoginKit'
   pod 'Cosmos'
-  pod 'Alamofire', '~> 4.7'
-  pod 'Kingfisher', '~> 6.0'
+  pod 'RxSwift'
+  pod 'RxCocoa'
 end
