@@ -7,6 +7,7 @@
 
 import Foundation
 
+var jwt: String = ""
 class BookAPI {
     let base = "http://192.168.1.105:8080"
     static let shared = BookAPI()

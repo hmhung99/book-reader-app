@@ -9,7 +9,8 @@ import UIKit
 import FBSDKLoginKit
 
 class UserTableViewController: UITableViewController {
-
+    var categoiresLabel: [String] = ["My favorites", "Khoa Học", "Tiểu Thuyết", "Lịch Sử"]
+    
     @IBOutlet weak var loginButton: UIButton!
     @IBAction func loginButtonPressed(_ sender: Any) {
         let loginManager = LoginManager()
@@ -29,17 +30,23 @@ class UserTableViewController: UITableViewController {
                                 return
                             }
                 self.updateButton(isLoggedIn: true)
-                postUser(AccessToken.current!.tokenString)
+                self.postUser(AccessToken.current!.tokenString)
             }
         }
     }
     
-    var categoiresLabel: [String] = ["My favorites", "Khoa Học", "Tiểu Thuyết", "Lịch Sử"]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         updateButton(isLoggedIn: AccessToken.current != nil)
     
+    }
+    
+    func postUser(_ accessToken: String) {
+        BookAPI.shared.getJWT(accessToken) { (response) in
+            jwt = response
+        }
     }
 
     // MARK: - Table view data source

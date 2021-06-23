@@ -109,7 +109,12 @@ func updateLikesImage(imageView: UIImageView, for bookId: String) {
     }
 }
 
-
+func isLiked(id: String) -> Bool {
+    if likedBooks.contains(where: {$0.id == id}) {
+        return true
+    }
+    return false
+}
 
 extension URL {
     func download(to directory: FileManager.SearchPathDirectory, using fileName: String? = nil, overwrite: Bool = false, completion: @escaping (URL?, Error?) -> Void) throws {

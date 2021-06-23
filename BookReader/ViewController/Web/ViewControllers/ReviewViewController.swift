@@ -8,6 +8,7 @@
 import UIKit
 import Cosmos
 import FBSDKLoginKit
+import RxSwift
 
 
 protocol WriteReviewViewControllerDeletage {
@@ -19,6 +20,7 @@ class ReviewViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var book: Book!
     var reviews: [Review] = []
+    
     @IBAction func writeAReviewButtonPressed(_ sender: Any) {
         
     }

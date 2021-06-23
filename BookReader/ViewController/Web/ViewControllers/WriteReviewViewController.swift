@@ -20,7 +20,9 @@ class WriteReviewViewController: UIViewController {
         if let comment = textView.text {
             BookAPI.shared.postReview(bookId: book.id, comment, Float(rateView.rating)) { (data) in
             }
+            dismiss(animated: true, completion: nil)
         }
+        delegate?.doneReviewing()
     }
     
     override func viewDidLoad() {
@@ -29,10 +31,6 @@ class WriteReviewViewController: UIViewController {
         rateView.didFinishTouchingCosmos = { rating in
             self.sendButton.isEnabled = true
         }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        delegate?.doneReviewing()
     }
     
 }

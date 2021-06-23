@@ -7,10 +7,9 @@
 
 import UIKit
 import EPUBKit
-import SwiftyJSON
 import FBSDKLoginKit
 
-var jwt: String = ""
+
 var likedBooks: [Book] = []
 
 class BookSourceViewController: UITableViewController, UISearchBarDelegate {
@@ -169,22 +168,9 @@ func loadRating(id: String, _ cell: BookCell) {
 }
 
 
-func isLiked(id: String) -> Bool {
-    if likedBooks.contains(where: {$0.id == id}) {
-        return true
-    }
-    return false
-}
-
-func postUser(_ accessToken: String) {
-    BookAPI.shared.getJWT(accessToken) { (response) in
-        jwt = response
-    }
-}
 
 
 let imageCache = NSCache<NSString, UIImage>()
-
 extension UIImageView {
     func loadImage(from path: String) {
         let url = URL(string: path)!
