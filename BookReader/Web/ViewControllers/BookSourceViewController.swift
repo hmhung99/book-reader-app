@@ -12,34 +12,39 @@ import FBSDKLoginKit
 
 var likedBooks: [Book] = []
 
-class BookSourceViewController: UITableViewController, UISearchBarDelegate {
+class BookSourceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     var books: [Book] = []
     var jwtObserve: String? {
         didSet {
             loadLikedBooks()
         }
     }
+    
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var userButtonPressed: UIBarButtonItem!
     
     
     override func viewWillAppear(_ animated: Bool) {
         checkLogin()
-        loadAllBooks()
     }
     
     override func viewDidLoad() {
+        loadAllBooks()
         searchBar.delegate = self
         self.tableView.separatorStyle = .none
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.rowHeight = 137
         tableView.register(UINib(nibName: "BookCell", bundle: nil), forCellReuseIdentifier: "BookSourceCell")
     }
 
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return books.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookSourceCell", for: indexPath) as! BookCell
         let book = books[indexPath.row]
         cell.label.text = book.name
@@ -62,27 +67,12 @@ class BookSourceViewController: UITableViewController, UISearchBarDelegate {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        cell.alpha = 0
-        UIView.animate(
-            withDuration: 0.35,
-            delay: 0.00005 * Double(indexPath.row),
-            animations: {
-                cell.alpha = 1
-        })
-    }
     
-
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 137
-    }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("ahhaa")
         performSegue(withIdentifier: "toDetail", sender: self)
     }
     
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow {
             let destinationVC = segue.destination as! DetailViewController
@@ -107,7 +97,6 @@ class BookSourceViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func loadAllBooks() {
-        loadLikedBooks()
         BookAPI.shared.getAllBooks { (list) in
             DispatchQueue.main.async {
                 self.books = list
@@ -123,6 +112,7 @@ class BookSourceViewController: UITableViewController, UISearchBarDelegate {
         BookAPI.shared.getLikedBooks { (list) in
             DispatchQueue.main.async {
                 likedBooks = list
+                self.tableView.reloadData()
             }
         }
     }
@@ -148,11 +138,7 @@ class BookSourceViewController: UITableViewController, UISearchBarDelegate {
                 }
             }
         }
-        
     }
-    
-    
-    
 }
 
 func loadRating(id: String, _ cell: BookCell) {

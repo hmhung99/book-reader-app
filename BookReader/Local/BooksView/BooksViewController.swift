@@ -13,28 +13,17 @@ class BooksViewController: UITableViewController {
     var bookURLs: [URL] = []
     
     
-    // *********temporary*******
     override func viewWillAppear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = false
-        books = []
-        bookURLs = getBookURLs()
-        bookURLs.forEach { (url) in
-            books.append(EPUBDocument(url: url)!)
-        }
-        tableView.reloadData()
-        
+        loadLocalBooks()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.separatorStyle = .none
-        let height: CGFloat = 100 //whatever height you want to add to the existing height
+        let height: CGFloat = 100
         tableView.register(UINib(nibName: "BookCell", bundle: nil), forCellReuseIdentifier: "BookCell")
-        
-        bookURLs = getBookURLs()
-        bookURLs.forEach { (url) in
-            books.append(EPUBDocument(url: url)!)
-        }
+    
     }
 
     // MARK: - Table view data source
@@ -106,6 +95,15 @@ class BooksViewController: UITableViewController {
             print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
         }
         return urls
+    }
+    
+    func loadLocalBooks() {
+        books = []
+        bookURLs = getBookURLs()
+        bookURLs.forEach { (url) in
+            books.append(EPUBDocument(url: url)!)
+        }
+        tableView.reloadData()
     }
 
 }

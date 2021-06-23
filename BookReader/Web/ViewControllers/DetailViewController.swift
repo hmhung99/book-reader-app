@@ -18,10 +18,12 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var donwloadImage: UIImageView!
     @IBOutlet weak var itemsView: UIView!
     @IBOutlet weak var likesCountLabel: UILabel!
+    
     @IBAction func downloadButtonPressed(_ sender: Any) {
         downloadBook()
         donwloadImage.image = UIImage(named: "checked")!
     }
+    
     @IBAction func reviewButtonPressed(_ sender: Any) {
         performSegue(withIdentifier: "toReviews", sender: self)
     }

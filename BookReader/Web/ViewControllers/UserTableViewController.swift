@@ -35,8 +35,6 @@ class UserTableViewController: UITableViewController {
         }
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateButton(isLoggedIn: AccessToken.current != nil)
