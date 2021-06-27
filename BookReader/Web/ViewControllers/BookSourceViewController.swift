@@ -14,29 +14,41 @@ var likedBooks: [Book] = []
 
 class BookSourceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     var books: [Book] = []
-    var jwtObserve: String? {
-        didSet {
-            loadLikedBooks()
-        }
-    }
-    
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var userButtonPressed: UIBarButtonItem!
     
     
     override func viewWillAppear(_ animated: Bool) {
-        checkLogin()
     }
     
     override func viewDidLoad() {
+        checkLogin()
+        initView()
+    }
+    
+    func initView() {
         loadAllBooks()
         searchBar.delegate = self
+        searchBar.layer.borderWidth = 1
+        searchBar.layer.borderColor = view.backgroundColor?.cgColor
+        
+        navigationController?.navigationBar.shadowImage = UIImage()
+        tabBarController?.tabBar.shadowImage = UIImage()
+        tabBarController?.tabBar.layer.borderWidth = 0.1
+        tabBarController?.tabBar.layer.borderColor = UIColor.clear.cgColor
+        tabBarController?.tabBar.clipsToBounds = true
+
         self.tableView.separatorStyle = .none
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.rowHeight = 137
         tableView.register(UINib(nibName: "BookCell", bundle: nil), forCellReuseIdentifier: "BookSourceCell")
+        NotificationCenter.default.addObserver(self, selector: #selector(loadAllBooks), name: NSNotification.Name.tapLikeBook, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadLikedBooks), name: NSNotification.Name.didLoginLogout, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadAllBooks), name: NSNotification.Name.didLoginLogout, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadAllBooks), name: NSNotification.Name.finishReview, object: nil)
     }
 
 
@@ -63,14 +75,13 @@ class BookSourceViewController: UIViewController, UITableViewDataSource, UITable
             cell.ratingStarImage.image = nil
             cell.ratingLabel.text = ""
         }
-        
         return cell
     }
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("ahhaa")
         performSegue(withIdentifier: "toDetail", sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,16 +90,7 @@ class BookSourceViewController: UIViewController, UITableViewDataSource, UITable
             destinationVC.book = books[indexPath.row]
         }
     }
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-
-    }
     
-
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-    
-    }
-
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
         if let keyword = searchBar.text {
@@ -96,89 +98,42 @@ class BookSourceViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    func loadAllBooks() {
-        BookAPI.shared.getAllBooks { (list) in
-            DispatchQueue.main.async {
-                self.books = list
-                UIView.transition(with: self.tableView,
-                                  duration: 1,
-                                  options: .transitionCrossDissolve,
-                                  animations: { self.tableView.reloadData() })
-            }
+    @objc func loadAllBooks() {
+        async {
+            self.books = await BookAPI.shared.getAllBooks()
+            updateUI()
         }
     }
     
-    func loadLikedBooks() {
-        BookAPI.shared.getLikedBooks { (list) in
-            DispatchQueue.main.async {
-                likedBooks = list
-                self.tableView.reloadData()
-            }
+    @objc func loadLikedBooks() {
+        async {
+            likedBooks = await BookAPI.shared.getLikedBooks()
+            updateUI()
         }
+        
     }
     
     func loadByKeyword(_ keyword: String) {
-        BookAPI.shared.getBooksByKeyword(keyword) { (list) in
-            DispatchQueue.main.async {
-                self.books = list
-                UIView.transition(with: self.tableView,
-                                  duration: 0.2,
-                                  options: .transitionCrossDissolve,
-                                  animations: { self.tableView.reloadData() })
-            }
+        async {
+            self.books = await BookAPI.shared.getBooksByKeyword(keyword)
+            updateUI()
         }
+        
     }
     
     func checkLogin() {
         if let accessToken = AccessToken.current?.tokenString {
-            BookAPI.shared.getJWT(accessToken) { (response) in
-                DispatchQueue.main.async {
-                    jwt = response
-                    self.jwtObserve = response
-                }
+            async {
+                jwt = await BookAPI.shared.getJWT(accessToken)
+                loadLikedBooks()
             }
         }
     }
-}
-
-func loadRating(id: String, _ cell: BookCell) {
-    BookAPI.shared.getRating(id: id) { (rating) in
+    
+    func updateUI() {
         DispatchQueue.main.async {
-            if (rating != 0) {
-                cell.ratingLabel.text = String(rating)
-                cell.ratingStarImage.image = UIImage(named: "ratingstar")
-                cell.setNeedsLayout()
-            }
+            self.tableView.reloadData()
         }
-    }
-}
-
-
-
-
-let imageCache = NSCache<NSString, UIImage>()
-extension UIImageView {
-    func loadImage(from path: String) {
-        let url = URL(string: path)!
-        self.image = nil
-        
-        if let imageFromCache = imageCache.object(forKey: path as NSString) {
-            self.image = imageFromCache
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if error != nil {
-                print(error?.localizedDescription)
-                return
-            }
-            DispatchQueue.main.async {
-                let imageToCache = UIImage(data: data!)
-                self.image = imageToCache
-                imageCache.setObject(imageToCache!, forKey: path as NSString)
-                
-            }
-        }.resume()
     }
 }
 

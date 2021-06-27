@@ -19,7 +19,6 @@ class CategoryBooksViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "BookCell", bundle: nil), forCellReuseIdentifier: "categoryBooksCell")
-        loadBooksByCategory()
         
     }
 
@@ -62,37 +61,35 @@ class CategoryBooksViewController: UITableViewController {
         }
     }
     
-    func loadBooksByCategory() {
-        books = []
-        if categoryId == 0 {
-            loadFavoriteBooks()
-        } else {
-            BookAPI.shared.getBooksByCategory(categoryId: categoryId) { (list) in
-                DispatchQueue.main.async {
-                    self.books = list
-                    UIView.transition(with: self.tableView,
-                                      duration: 1,
-                                      options: .transitionCrossDissolve,
-                                      animations: { self.tableView.reloadData() })
-                }
-            }
+    func updateUI() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
     
-    func loadFavoriteBooks() {
-        BookAPI.shared.getLikedBooks { (list) in
-            DispatchQueue.main.async {
-                self.books = list
-                self.books = self.books.sorted { (i, j) -> Bool in
-                    return i.name < j.name
-                }
-                UIView.transition(with: self.tableView,
-                                  duration: 0.35,
-                                  options: .transitionCrossDissolve,
-                                  animations: { self.tableView.reloadData() })
+    func loadBooksByCategory() {
+        if categoryId == 0 {
+            loadFavoriteBooks()
+        } else {
+            async {
+                self.books = await BookAPI.shared.getBooksByCategory(categoryId: categoryId)
+                updateUI()
             }
         }
     }
+
+    
+    func loadFavoriteBooks() {
+        async {
+            self.books = await BookAPI.shared.getLikedBooks()
+            self.books = self.books.sorted { (i, j) -> Bool in
+                return i.name < j.name
+            }
+            updateUI()
+        }
+    }
+    
+    
 }
 
 

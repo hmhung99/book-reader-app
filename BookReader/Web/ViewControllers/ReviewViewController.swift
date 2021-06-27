@@ -10,11 +10,6 @@ import Cosmos
 import FBSDKLoginKit
 import RxSwift
 
-
-protocol WriteReviewViewControllerDeletage {
-    func doneReviewing ()
-}
-
 class ReviewViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -30,6 +25,7 @@ class ReviewViewController: UIViewController {
         self.tableView.separatorStyle = .none
         tableView.register(UINib(nibName: "ReviewCell", bundle: nil), forCellReuseIdentifier: "reviewCell")
         loadReviews()
+        NotificationCenter.default.addObserver(self, selector: #selector(loadReviews), name: NSNotification.Name.finishReview, object: nil)
     }
 }
 
@@ -50,7 +46,6 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
         let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
@@ -64,22 +59,16 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! WriteReviewViewController
         destinationVC.book = book
-        destinationVC.delegate = self
+        
     }
     
-    func loadReviews() {
-        BookAPI.shared.getReviews(bookId: book.id) { (list) in
+    @objc func loadReviews() {
+        async {
+            self.reviews = await BookAPI.shared.getReviews(bookId: book.id)
             DispatchQueue.main.async {
-                self.reviews = list
                 self.tableView.reloadData()
             }
         }
-    }
-}
-
-extension ReviewViewController: WriteReviewViewControllerDeletage {
-    func doneReviewing() {
-        loadReviews()
     }
 }
 

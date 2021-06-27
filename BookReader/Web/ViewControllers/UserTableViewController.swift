@@ -18,6 +18,7 @@ class UserTableViewController: UITableViewController {
             loginManager.logOut()
             jwt = ""
             updateButton(isLoggedIn: false)
+            NotificationCenter.default.post(name: NSNotification.Name.didLoginLogout, object: nil)
         } else {
             loginManager.logIn(permissions: [], from: self) { (result, error) in
                 guard error == nil else {
@@ -42,8 +43,9 @@ class UserTableViewController: UITableViewController {
     }
     
     func postUser(_ accessToken: String) {
-        BookAPI.shared.getJWT(accessToken) { (response) in
-            jwt = response
+        async {
+            jwt = await BookAPI.shared.getJWT(accessToken)
+            NotificationCenter.default.post(name: NSNotification.Name.didLoginLogout, object: nil)
         }
     }
 

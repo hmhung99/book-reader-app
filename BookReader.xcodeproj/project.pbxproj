@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		13E3C1EC927E72F210D5C7A1 /* Pods_BookReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAD59E75DAEECD2E740AD7F /* Pods_BookReader.framework */; };
+		B257AD3A2688166C00D7735B /* ImageView+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B257AD392688166C00D7735B /* ImageView+Extentions.swift */; };
+		B257AD3C268816D900D7735B /* URL+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B257AD3B268816D900D7735B /* URL+Extentions.swift */; };
+		B257AD3E2688172000D7735B /* NotificationCenter+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B257AD3D2688172000D7735B /* NotificationCenter+Extentions.swift */; };
 		B27143402685E17600084CEA /* BookSourceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271431D2685E17500084CEA /* BookSourceViewModel.swift */; };
 		B27143412685E17600084CEA /* BookAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B271431F2685E17500084CEA /* BookAPI.swift */; };
 		B27143422685E17600084CEA /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27143212685E17500084CEA /* UserTableViewController.swift */; };
@@ -39,6 +42,9 @@
 /* Begin PBXFileReference section */
 		9DEC31B67CA620BEC5707E29 /* Pods-BookReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookReader.release.xcconfig"; path = "Target Support Files/Pods-BookReader/Pods-BookReader.release.xcconfig"; sourceTree = "<group>"; };
 		AC402BC0C8CC44FE64D933A9 /* Pods-BookReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookReader.debug.xcconfig"; path = "Target Support Files/Pods-BookReader/Pods-BookReader.debug.xcconfig"; sourceTree = "<group>"; };
+		B257AD392688166C00D7735B /* ImageView+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+Extentions.swift"; sourceTree = "<group>"; };
+		B257AD3B268816D900D7735B /* URL+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extentions.swift"; sourceTree = "<group>"; };
+		B257AD3D2688172000D7735B /* NotificationCenter+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extentions.swift"; sourceTree = "<group>"; };
 		B271431D2685E17500084CEA /* BookSourceViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookSourceViewModel.swift; sourceTree = "<group>"; };
 		B271431F2685E17500084CEA /* BookAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookAPI.swift; sourceTree = "<group>"; };
 		B27143212685E17500084CEA /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
@@ -99,9 +105,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B257AD382688164300D7735B /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				B257AD392688166C00D7735B /* ImageView+Extentions.swift */,
+				B257AD3B268816D900D7735B /* URL+Extentions.swift */,
+				B257AD3D2688172000D7735B /* NotificationCenter+Extentions.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
 		B271431A2685E17500084CEA /* BookReader */ = {
 			isa = PBXGroup;
 			children = (
+				B257AD382688164300D7735B /* Extentions */,
 				B271433D2685E17600084CEA /* AppDelegate.swift */,
 				B271433F2685E17600084CEA /* SceneDelegate.swift */,
 				B271431B2685E17500084CEA /* Web */,
@@ -332,6 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B257AD3C268816D900D7735B /* URL+Extentions.swift in Sources */,
 				B27143402685E17600084CEA /* BookSourceViewModel.swift in Sources */,
 				B27143462685E17600084CEA /* ReviewCell.swift in Sources */,
 				B27143582685E17600084CEA /* AppDelegate.swift in Sources */,
@@ -347,11 +365,13 @@
 				B27143542685E17600084CEA /* RecentReading.swift in Sources */,
 				B27143512685E17600084CEA /* BookCell.swift in Sources */,
 				B271434D2685E17600084CEA /* ChaptersTableViewController.swift in Sources */,
+				B257AD3A2688166C00D7735B /* ImageView+Extentions.swift in Sources */,
 				B271435A2685E17600084CEA /* SceneDelegate.swift in Sources */,
 				B27143412685E17600084CEA /* BookAPI.swift in Sources */,
 				B27143432685E17600084CEA /* DetailViewController.swift in Sources */,
 				B27143562685E17600084CEA /* Book.swift in Sources */,
 				B27143572685E17600084CEA /* WebViewExtension.swift in Sources */,
+				B257AD3E2688172000D7735B /* NotificationCenter+Extentions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,7 +448,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -483,7 +503,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -503,7 +523,7 @@
 				DEVELOPMENT_TEAM = 5782G87QYF;
 				INFOPLIST_FILE = "$(SRCROOT)/BookReader/Info.plist";
 				"INFOPLIST_FILE[sdk=*]" = "$(SRCROOT)/BookReader/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -525,7 +545,7 @@
 				DEVELOPMENT_TEAM = 5782G87QYF;
 				INFOPLIST_FILE = "$(SRCROOT)/BookReader/Info.plist";
 				"INFOPLIST_FILE[sdk=*]" = "$(SRCROOT)/BookReader/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

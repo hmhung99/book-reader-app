@@ -15,130 +15,91 @@ class BookAPI {
 
 extension BookAPI {
     
-    func getAllBooks(_ completion: @escaping ([Book]) -> ()){
+    func getAllBooks() async -> [Book] {
         let path = base + "/books?page=0&size=40"
-        
-        get(from: path, type: Content.self) { (result) in
-            if case .success(let response) = result {
-                completion(response.content ?? [])
-            }
-        }
+        let response = await get(from: path, type: Content.self)
+        return response?.content ?? []
     }
     
-    func getBookById(id: String, _ completion: @escaping (Book) -> ()) {
+    func getBookById(id: String) async -> Book? {
         let path = base + "/books/\(id)"
-        
-        get(from: path, type: Book.self) { (result) in
-            if case .success(let response) = result {
-                completion(response)
-            }
-        }
+        let response = await get(from: path, type: Book.self)
+        return response
     }
     
-    func getLikedBooks(_ completion: @escaping ([Book]) -> ()){
+    func getLikedBooks() async -> [Book] {
         let path = base + "/books/likes"
-
-        get(from: path, type: FavoriteBooks.self) { (result) in
-            if case .success(let response) = result {
-                completion(response.favoriteBooks ?? [])
-            }
-        }
+        let response = await get(from: path, type: FavoriteBooks.self)
+        return response?.favoriteBooks ?? []
     }
     
-    func getBooksByKeyword(_ keyword: String, _ completion: @escaping ([Book]) -> ()) {
+    func getBooksByKeyword(_ keyword: String) async -> [Book]  {
         let path = base + "/books?page=0&name=\(keyword)"
             .addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)!
-        
-        get(from: path, type: Content.self) { (result) in
-            if case .success(let response) = result {
-                completion(response.content ?? [])
-            }
-        }
+        let response = await get(from: path, type: Content.self)
+        return response?.content ?? []
     }
     
-    func getBooksByCategory(categoryId: Int, _ completion: @escaping ([Book]) -> ()) {
+    func getBooksByCategory(categoryId: Int) async -> [Book]  {
         let path = base + "/categories/\(categoryId)"
-        
-        get(from: path, type: Category.self) { (result) in
-            if case .success(let response) = result {
-                completion(response.books ?? [])
-            }
-        }
+        let response = await get(from: path, type: Category.self)
+        return response?.books ?? []
         
     }
     
-    func getReviews(bookId: String, _ completion: @escaping ([Review]) -> ()) {
+    func getReviews(bookId: String) async -> [Review] {
         let path = base + "/books/\(bookId)/reviews"
-        
-        get(from: path, type: ListReviews.self) { (result) in
-            if case .success(let response) = result {
-                completion(response.reviews)
-            }
-        }
+        let response = await get(from: path, type: ListReviews.self)
+        return response?.reviews ?? []
         
     }
     
-    func getRating(id: String, _ completion: @escaping (Float) -> ()) {
+    func getRating(id: String) async -> Float?  {
         let path = base + "/books/\(id)/rateAverage"
-
-        get(from: path, type: Float.self) { (result) in
-            if case .success(let response) = result {
-                completion(response)
-            }
-        }
+        let response = await get(from: path, type: Float.self)
+        return response
     }
     
-    func postLike(id: String, _ completion: @escaping (Data) -> ()) {
+    func postLike(id: String) async -> Bool {
         let path = base + "/books/\(id)/likes"
-        
-        post(from: path) { (data) in
-            completion(data)
-        }
+        let _ =  await post(from: path)
+        return true
     }
     
-    func postReview(bookId: String, _ comment: String, _ rate: Float, _ completion: @escaping (Data) -> ()) {
+    func postReview(bookId: String, _ comment: String, _ rate: Float) async {
         let path = base + "/books/\(bookId)/reviews"
         let json: [String: Any] = ["content": "\(comment)", "rate": rate]
-        
-        post(from: path, json: json) { (data) in
-            completion(data)
-        }
+        let _ =  await post(from: path, json: json)
     }
     
-    func getJWT(_ accessToken: String, _ completion: @escaping (String) -> ()) {
+    func getJWT(_ accessToken: String) async -> String {
         let path = base + "/users"
         let json: [String: Any] = ["accessToken": "\(accessToken)"]
+        let data =  await post(from: path, json: json)
+        let response = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:Any]
+        let jwt = response["jwt"] as! String
+        return jwt
         
-        post(from: path, json: json) { (data) in
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-            if let response = responseJSON as? [String: Any] {
-                    jwt = response["jwt"] as! String
-                    completion(jwt)
-            }
-        }
     }
     
     
-    func get<T: Decodable>(from path: String, type: T.Type , result: @escaping (Result<T, Error>) -> Void) {
+    func get<T: Decodable>(from path: String, type: T.Type) async -> T? {
         let url = URL(string: path)!
         var request = URLRequest(url: url)
         request.setValue(jwt, forHTTPHeaderField: "user_token")
-        URLSession.shared.dataTask(with: request) { (data, response, taskError) in
-            guard let data = data, taskError == nil else {
-                print("task error" + taskError!.localizedDescription)
-                return result(.failure(taskError!))
-            }
-            do {
-                let object = try JSONDecoder().decode(T.self, from: data)
-                result(.success(object))
-            } catch {
-                print("decoder error \(error.localizedDescription)")
-                result(.failure(error))
-            }
-        }.resume()
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            let response = try JSONDecoder().decode(T.self, from: data)
+            return response
+        } catch {
+            print("error get" + error.localizedDescription)
+            return nil
+        }
+        
     }
-    
-    func post(from path: String, json: [String: Any] = [:], completionHandler: @escaping (Data) -> Void) {
+
+    func post(from path: String, json: [String: Any] = [:]) async -> Data? {
         let url = URL(string: path)!
         var request = URLRequest(url: url)
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
@@ -146,16 +107,16 @@ extension BookAPI {
         request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
         request.setValue(jwt, forHTTPHeaderField: "user_token")
-        
         if jsonData != nil {
             request.httpBody = jsonData
         }
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                completionHandler(data)
-            }
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            return data
+        } catch {
+            print(error)
+            return nil
         }
-        task.resume()
     }
 }

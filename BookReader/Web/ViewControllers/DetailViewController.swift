@@ -76,26 +76,28 @@ class DetailViewController: UIViewController {
     }
     
     func likeBook() {
-        BookAPI.shared.postLike(id: book.id) { (data) in
-            DispatchQueue.main.async {
-                self.loadBook()
-                self.loadLikedBooks()
-            }
+        async {
+            let _ = await BookAPI.shared.postLike(id: book.id)
+            self.loadLikedBooks()
+            loadBook()
+            NotificationCenter.default.post(name: NSNotification.Name.tapLikeBook, object: nil)
         }
+        
     }
     
     func loadBook() {
-        BookAPI.shared.getBookById(id: book.id) { (object) in
+        async {
+            let response = await BookAPI.shared.getBookById(id: book.id)
             DispatchQueue.main.async {
-                self.likesCountLabel.text = String(object.reactionNum)
+                self.likesCountLabel.text = String(response!.reactionNum)
             }
         }
     }
     
     func loadLikedBooks() {
-        BookAPI.shared.getLikedBooks { (list) in
+        async {
+            likedBooks = await BookAPI.shared.getLikedBooks()
             DispatchQueue.main.async {
-                likedBooks = list
                 updateLikesImage(imageView: self.likesImageView, for: self.book.id)
             }
         }
@@ -103,51 +105,5 @@ class DetailViewController: UIViewController {
 
 }
 
-func updateLikesImage(imageView: UIImageView, for bookId: String) {
-    if isLiked(id: bookId) {
-        imageView.image = UIImage(named: "liked")
-    } else {
-        imageView.image = UIImage(named: "like")
-    }
-}
 
-func isLiked(id: String) -> Bool {
-    if likedBooks.contains(where: {$0.id == id}) {
-        return true
-    }
-    return false
-}
 
-extension URL {
-    func download(to directory: FileManager.SearchPathDirectory, using fileName: String? = nil, overwrite: Bool = false, completion: @escaping (URL?, Error?) -> Void) throws {
-        let directory = try FileManager.default.url(for: directory, in: .userDomainMask, appropriateFor: nil, create: true)
-        let destination: URL
-        if let fileName = fileName {
-            destination = directory
-                .appendingPathComponent(fileName + ".epub")
-                .appendingPathExtension(self.pathExtension)
-        } else {
-            destination = directory
-            .appendingPathComponent(lastPathComponent + ".epub")
-        }
-        if !overwrite, FileManager.default.fileExists(atPath: destination.path) {
-            completion(destination, nil)
-            return
-        }
-        URLSession.shared.downloadTask(with: self) { location, _, error in
-            guard let location = location else {
-                completion(nil, error)
-                return
-            }
-            do {
-                if overwrite, FileManager.default.fileExists(atPath: destination.path) {
-                    try FileManager.default.removeItem(at: destination)
-                }
-                try FileManager.default.moveItem(at: location, to: destination)
-                completion(destination, nil)
-            } catch {
-                print(error)
-            }
-        }.resume()
-    }
-}
